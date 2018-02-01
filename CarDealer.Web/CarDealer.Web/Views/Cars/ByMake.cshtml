@@ -1,0 +1,41 @@
+﻿@model CarsByMakeModel
+
+@{
+    ViewData["Title"] = $"{@Model.Make[0].ToString().ToUpper()}{Model.Make.Substring(1)} Cars";
+}
+
+<h2>Cars By Model</h2>
+<h4>Searched Model: @Model.Make</h4>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Make
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Travelled Distance
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var car in Model.Cars)
+        {
+            <tr>
+                <td>
+                    @car.Make
+                </td>
+                <td>
+                    @car.Model
+                </td>
+                <td>
+                    @car.TravelledDistance
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,41 @@
+﻿@model AllCustomerModel
+
+@{
+    ViewData["Title"] = "All customers";
+}
+
+<h2>All Customers</h2>
+<h4>Ordered in @Model.OrderDirection.ToString().ToLower() direction.</h4>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Birthday
+            </th>
+            <th>
+                Is Young Driver
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var customer in Model.Customers)
+       {
+        <tr>
+            <td>
+                @customer.Name
+            </td>
+            <td>
+                @customer.BirthDay.ToShortDateString()
+            </td>
+            <td>
+                @(customer.IsYoungDriver ? "Yes" : "No")
+            </td>
+        </tr>
+       }
+    </tbody>
+</table>
+

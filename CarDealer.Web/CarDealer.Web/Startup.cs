@@ -8,6 +8,8 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Services;
+    using Services.Implementations;
 
     public class Startup
     {
@@ -33,6 +35,12 @@
                 .AddEntityFrameworkStores<CarDealerDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddTransient<ICustomerService, CustomerService>();
+
+            services.AddTransient<ICarService, CarService>();
+
+            services.AddTransient<ISupplierService, SupplierService>();
+
             services.AddMvc();
         }
 
@@ -53,12 +61,7 @@
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
