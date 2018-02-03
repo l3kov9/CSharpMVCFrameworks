@@ -1,0 +1,48 @@
+﻿@model CustomerTotalSalesModel
+
+@{
+    ViewData["Title"] = $"Total Sales - {@Model.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@{ 
+    var totalCars = Model.BoughtCars.Count();
+}
+
+<h4>@totalCars @(totalCars > 1 ? "cars" : "car") bought</h4>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Total Money Spent
+            </th>
+            <th>
+                Bought Cars
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Model.Name
+            </td>
+            <td>
+                @Model.TotalMoneySpent.ToString("F2")
+            </td>
+            <td>
+                <ul>
+                    @foreach(var sale in Model.BoughtCars)
+                    {
+                        <li>@($"${sale.Price:F2} with {sale.Discount * 100:F2}% discount.")</li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

@@ -1,0 +1,9 @@
+﻿@model SaleDetailsModel
+
+@{
+    ViewData["Title"] = $"{Model.Car.Make} sale";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h2>@Model.Price.ToPrice()</h2>
+

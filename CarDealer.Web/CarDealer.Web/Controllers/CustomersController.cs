@@ -1,10 +1,12 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using Helpers.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Models.Customers;
     using Services;
     using Services.Models;
 
+    [Route("customers")]
     public class CustomersController : Controller
     {
         private readonly ICustomerService customers;
@@ -14,11 +16,70 @@
             this.customers = customers;
         }
 
-        [Route("customers/all/{order}")]
+        [Route(nameof(Create))]
+        public IActionResult Create()
+            => View();
+
+        [HttpPost]
+        [Route(nameof(Create))]
+        public IActionResult Create(CustomerFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.customers.Create(model.Name,model.Birthday, model.IsYoungDriver);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [Route("edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var customer = this.customers.ById(id);
+
+            if(customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(new CustomerFormModel
+            {
+                Name = customer.Name,
+                Birthday = customer.BirthDay,
+                IsYoungDriver = customer.IsYoungDriver
+            });
+        }
+
+        [HttpPost]
+        [Route("edit/{id}")]
+        public IActionResult Edit(int id, CustomerFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var customerExists = this.customers.Exists(id);
+
+            if (!customerExists)
+            {
+                return NotFound();
+            }
+
+            this.customers.Edit(id, model.Name, model.Birthday, model.IsYoungDriver);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [Route("all/{order?}")]
         public IActionResult All(string order)
         {
-            var orderDirection = order.ToLower() == "descending" 
-                                    ? OrderDirection.Descending 
+            order = order ?? string.Empty;
+
+            var orderDirection = order.ToLower() == "descending"
+                                    ? OrderDirection.Descending
                                     : OrderDirection.Ascending;
 
             var customers = this.customers.OrderedCustomer(orderDirection);
@@ -29,5 +90,9 @@
                 OrderDirection = orderDirection
             });
         }
+
+        [Route("{id}")]
+        public IActionResult TotalSales(int id) 
+            => this.ViewOrNotFound(this.customers.TotalSalesById(id));
     }
 }

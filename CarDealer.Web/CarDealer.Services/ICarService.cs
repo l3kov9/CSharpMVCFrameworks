@@ -1,6 +1,6 @@
 ﻿namespace CarDealer.Services
 {
-    using Models;
+    using Models.Cars;
     using System.Collections.Generic;
 
     public interface ICarService

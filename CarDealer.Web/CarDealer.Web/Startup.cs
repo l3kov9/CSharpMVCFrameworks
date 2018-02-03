@@ -2,14 +2,13 @@
 {
     using Data;
     using Data.Models;
+    using Helpers.Extensions;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Services;
-    using Services.Implementations;
 
     public class Startup
     {
@@ -35,11 +34,16 @@
                 .AddEntityFrameworkStores<CarDealerDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<ICustomerService, CustomerService>();
+            // auto registering all services
+            services.AddDomainService();
+            
+            //services.AddTransient<ICustomerService, CustomerService>();
 
-            services.AddTransient<ICarService, CarService>();
+            //services.AddTransient<ICarService, CarService>();
 
-            services.AddTransient<ISupplierService, SupplierService>();
+            //services.AddTransient<ISupplierService, SupplierService>();
+
+            //services.AddTransient<ISaleService, SaleService>();
 
             services.AddMvc();
         }
