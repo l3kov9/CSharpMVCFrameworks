@@ -20,6 +20,6 @@
 
         public IEnumerable<Sale> Sales { get; set; } = new List<Sale>();
 
-        public IEnumerable<PartCar> Parts { get; set; } = new List<PartCar>();
+        public List<PartCar> Parts { get; set; } = new List<PartCar>();
     }
 }

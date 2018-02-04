@@ -21,5 +21,7 @@
         public int SupplierId { get; set; }
 
         public IEnumerable<SelectListItem> Suppliers { get; set; }
+
+        public bool IsEdit { get; set; }
     }
 }
