@@ -8,7 +8,7 @@
         IEnumerable<PartListingModel> AllListings(int page = 1, int pageSize = 10);
 
         IEnumerable<PartBasicModel> All();
-
+        
         PartDetailsModel ById(int id);
 
         int Total();

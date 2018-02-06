@@ -5,12 +5,14 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Cars;
     using Services;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    [Route("cars")]
     public class CarsController : Controller
     {
+        private const int PageSize = 10;
+
         private readonly ICarService cars;
         private readonly IPartService parts;
 
@@ -21,7 +23,6 @@
         }
 
         [Authorize]
-        [Route(nameof(Create))]
         public IActionResult Create()
             => View(new CarFormModel
             {
@@ -30,7 +31,6 @@
 
         [Authorize]
         [HttpPost]
-        [Route(nameof(Create))]
         public IActionResult Create(CarFormModel carModel)
         {
             if (!ModelState.IsValid)
@@ -44,8 +44,17 @@
             return RedirectToAction(nameof(Parts));
         }
 
-        [Route("{make}", Order = 2)]
-        public IActionResult ByMake(string make)
+        public IActionResult Delete(int id)
+            => View(id);
+
+        public IActionResult Destroy(int id)
+        {
+            this.cars.Delete(id);
+
+            return RedirectToAction(nameof(Parts));
+        }
+
+        public IActionResult Makes(string make)
         {
             var carsByMake = this.cars.ByMake(make);
 
@@ -56,9 +65,13 @@
             });
         }
 
-        [Route("Parts", Order = 1)]
-        public IActionResult Parts()
-            => View(this.cars.WithParts());
+        public IActionResult Parts(int page = 1)
+            => View(new CarPageListingModel
+            {
+                Cars = this.cars.WithParts(page, PageSize),
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(this.cars.Total() / (double)PageSize)
+            });
 
         private IEnumerable<SelectListItem> GetPartsSelectItems()
             => this.parts

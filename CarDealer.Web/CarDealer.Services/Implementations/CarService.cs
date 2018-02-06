@@ -54,12 +54,33 @@
             this.db.SaveChanges();
         }
 
-        public IEnumerable<CarWithPartsModel> WithParts()
+        public void Delete(int id)
+        {
+            var car = this.db.Cars.Find(id);
+
+            if(car == null)
+            {
+                return;
+            }
+
+            this.db.Cars.Remove(car);
+            this.db.SaveChanges();
+        }
+
+        public int Total()
+            => this.db
+                .Cars
+                .Count();
+
+        public IEnumerable<CarWithPartsModel> WithParts(int page = 1, int pageSize = 10)
             => this.db
                 .Cars
                 .OrderByDescending(c => c.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(c => new CarWithPartsModel
                 {
+                    Id = c.Id,
                     Make = c.Make,
                     Model = c.Model,
                     TravelledDistance = c.TravelledDistance,
