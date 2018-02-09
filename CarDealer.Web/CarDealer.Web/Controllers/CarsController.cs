@@ -65,13 +65,28 @@
             });
         }
 
-        public IActionResult Parts(int page = 1)
-            => View(new CarPageListingModel
+        public IActionResult Parts(string search, int page = 1)
+        {
+            var cars = this.cars.WithParts(page, PageSize);
+            var totalCars = this.cars.Total();
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                Cars = this.cars.WithParts(page, PageSize),
+                cars = this.cars
+                    .WithParts(1, this.cars.Total())
+                    .Where(c => c.Make.ToLower().Contains(search.ToLower()));
+                 totalCars = cars.Count();
+                    cars=cars.Skip((page - 1) * PageSize)
+                    .Take(PageSize);
+            }
+            
+            return View(new CarPageListingModel
+            {
+                Cars = cars,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.cars.Total() / (double)PageSize)
+                TotalPages = (int)Math.Ceiling(totalCars / (double)PageSize),
+                Search = search
             });
+        }
 
         private IEnumerable<SelectListItem> GetPartsSelectItems()
             => this.parts

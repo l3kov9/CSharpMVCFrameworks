@@ -4,5 +4,6 @@
 
     public class User : IdentityUser
     {
+        public byte[] Photo { get; set; }
     }
 }

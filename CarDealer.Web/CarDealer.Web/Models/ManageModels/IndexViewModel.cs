@@ -17,5 +17,8 @@
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
+
+        [Display(Name = "UserPhoto")]
+        public byte[] Photo { get; set; }
     }
 }

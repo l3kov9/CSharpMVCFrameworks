@@ -1,6 +1,8 @@
 ﻿namespace CarDealer.Web.Models.AccountModels
 {
+    using Microsoft.AspNetCore.Http;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
 
     public class RegisterModel
     {
@@ -24,5 +26,8 @@
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "UserPhoto")]
+        public IFormFile Photo { get; set; }
     }
 }

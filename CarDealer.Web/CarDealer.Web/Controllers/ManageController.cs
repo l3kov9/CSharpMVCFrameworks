@@ -54,6 +54,7 @@
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
+                Photo = user.Photo,
                 StatusMessage = StatusMessage
             };
 

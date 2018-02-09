@@ -10,6 +10,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using CarDealer.Web.Models.AccountModels;
+    using System.IO;
+    using Microsoft.AspNetCore.Http;
 
     [Authorize]
     [Route("[controller]/[action]")]
@@ -209,10 +211,15 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model, string returnUrl = null)
         {
+            var photoAsString = HttpContext.Request.Form["Photo"];
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username, Email = model.Email };
+                var photo = System.Text.Encoding.UTF8.GetBytes(photoAsString);
+
+                var user = new User { UserName = model.Username, Email = model.Email, Photo = photo };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

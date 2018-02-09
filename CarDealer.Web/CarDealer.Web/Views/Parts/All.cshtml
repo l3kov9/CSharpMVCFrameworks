@@ -23,7 +23,7 @@
     </li>
     @for (int i = 1; i <= Model.TotalPages; i++)
     {
-        <li class="page-item @(Model.CurrentPage == i ? "active":string.Empty)"><a class="page-link" href="/parts/all?page=@i">@i</a></li>
+        <li class="page-item @(Model.CurrentPage == i ? "active":string.Empty)"><a class="page-link" href="/parts/all?page=@i" style="width: 55px; text-align:center">@i</a></li>
     }
     <li class="page-item @nextDisabled">
         <a class="page-link" href="/parts/all?page=@Model.NextPage" aria-label="Next">

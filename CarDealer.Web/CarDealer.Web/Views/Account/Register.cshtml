@@ -31,8 +31,13 @@
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
+            <div class="form-group">
+                <label asp-for="Photo"></label>
+                <input asp-for="Photo" class="form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+                <button type="submit" class="btn btn-default">Register</button>
+</form>
     </div>
 </div>
 
