@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Parts;
@@ -21,6 +22,7 @@
             this.suppliers = suppliers;
         }
 
+        [Authorize]
         public IActionResult Create()
             => View(new PartFormModel
             {
@@ -28,6 +30,7 @@
             });
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(PartFormModel model)
         {
             //if (true) // Check if supplier doesn't exist - OPTIONAL
@@ -46,6 +49,7 @@
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize]
         public IActionResult Edit(int id)
         {
             var part = this.parts.ById(id);
@@ -65,6 +69,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Edit(int id, PartFormModel model)
         {
             if (!ModelState.IsValid)
@@ -78,9 +83,11 @@
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
             => View(id);
 
+        [Authorize]
         public IActionResult Destroy(int id)
         {
             this.parts.Delete(id);

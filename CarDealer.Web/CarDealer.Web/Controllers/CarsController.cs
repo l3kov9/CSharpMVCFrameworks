@@ -44,9 +44,11 @@
             return RedirectToAction(nameof(Parts));
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
             => View(id);
 
+        [Authorize]
         public IActionResult Destroy(int id)
         {
             this.cars.Delete(id);

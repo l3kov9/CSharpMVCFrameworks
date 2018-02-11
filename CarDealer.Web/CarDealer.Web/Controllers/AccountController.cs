@@ -1,17 +1,16 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using CarDealer.Web.Models.AccountModels;
     using Data.Models;
-    using System;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using CarDealer.Web.Models.AccountModels;
-    using System.IO;
-    using Microsoft.AspNetCore.Http;
+    using System;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
 
     [Authorize]
     [Route("[controller]/[action]")]
