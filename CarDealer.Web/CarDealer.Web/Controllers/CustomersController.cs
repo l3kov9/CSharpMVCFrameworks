@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using CarDealer.Web.Helpers.Filters;
     using Helpers.Extensions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@
 
         [HttpPost]
         [Authorize]
+        [Log]
         [Route(nameof(Create))]
         public IActionResult Create(CustomerFormModel model)
         {
@@ -57,6 +59,7 @@
         }
 
         [HttpPost]
+        [Log]
         [Authorize]
         [Route("edit/{id}")]
         public IActionResult Edit(int id, CustomerFormModel model)

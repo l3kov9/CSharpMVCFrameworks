@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using CarDealer.Web.Helpers.Filters;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -30,6 +31,7 @@
             });
 
         [HttpPost]
+        [Log]
         [Authorize]
         public IActionResult Create(PartFormModel model)
         {
@@ -69,6 +71,7 @@
         }
 
         [HttpPost]
+        [Log]
         [Authorize]
         public IActionResult Edit(int id, PartFormModel model)
         {
@@ -88,6 +91,7 @@
             => View(id);
 
         [Authorize]
+        [Log]
         public IActionResult Destroy(int id)
         {
             this.parts.Delete(id);

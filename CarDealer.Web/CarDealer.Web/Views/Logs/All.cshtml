@@ -1,0 +1,75 @@
+﻿@model LogViewModel
+
+@{
+    ViewData["Title"] = "All Logs";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@{ 
+    var searchQuery = Model.Search == null ? string.Empty : $"&search={Model.Search}";
+}
+
+<a class="btn btn-danger" href="/logs/clear">Clear All Logs</a>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="/logs/all?page=@(Model.PreviousPage<1?1:Model.PreviousPage)@searchQuery">Previous</a></li>
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            var currentActive = i == Model.CurrentPage ? "active" : string.Empty;
+            <li class="page-item @currentActive"><a class="page-link" href="/logs/all?page=@i@searchQuery">@i</a></li>
+        }
+        <li class="page-item"><a class="page-link" href="/logs/all?page=@(Model.NextPage>Model.TotalPages?Model.TotalPages:Model.NextPage)@searchQuery">Next</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <form method="get">
+                <input asp-for="Search" class="form-control" placeholder="Search for User ..." value="@Model.Search">
+                <input type="submit" placeholder="Search for User ..." class="btn btn-sm" value="Search" />
+            </form>
+        </div>
+    </div>
+</div>
+<br />
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                User
+            </th>
+            <th>
+                Operation
+            </th>
+            <th>
+                Modified Table
+            </th>
+            <th>
+                Time
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var log in Model.Logs)
+        {
+            <tr>
+                <td>
+                    @log.User
+                </td>
+                <td>
+                    @log.Operation
+                </td>
+                <td>
+                    @log.ModifiedTable
+                </td>
+                <td>
+                    @log.Time
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
