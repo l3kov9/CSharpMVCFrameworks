@@ -4,6 +4,7 @@
     using Models.Customers;
     using System;
     using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public interface ICustomerService
     {
@@ -18,5 +19,7 @@
         void Edit(int id, string name, DateTime birthday, bool isYoungDriver);
 
         CustomerModel ById(int id);
+
+        IEnumerable<SelectListItem> GetCustomersSelectListItems();
     }
 }

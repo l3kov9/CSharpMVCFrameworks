@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Services
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Cars;
     using System.Collections.Generic;
 
@@ -14,5 +15,9 @@
         void Delete(int id);
 
         int Total();
+
+        IEnumerable<SelectListItem> GetCarsSelectListItems();
+
+        CarSaleServiceModel ById(int carId);
     }
 }

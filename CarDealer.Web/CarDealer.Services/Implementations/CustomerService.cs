@@ -8,6 +8,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CustomerService : ICustomerService
     {
@@ -114,5 +115,15 @@
             => this.db
                 .Customers
                 .Any(c => c.Id == id);
+
+        public IEnumerable<SelectListItem> GetCustomersSelectListItems()
+            => this.db
+                .Customers
+                .Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                })
+                .ToList();
     }
 }

@@ -6,6 +6,7 @@
     using Models.Cars;
     using System.Collections.Generic;
     using System.Linq;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CarService : ICarService
     {
@@ -15,6 +16,17 @@
         {
             this.db = db;
         }
+
+        public CarSaleServiceModel ById(int carId)
+            => this.db
+                .Cars
+                .Where(c => c.Id == carId)
+                .Select(c => new CarSaleServiceModel
+                {
+                    Name = $"{c.Make} {c.Model}",
+                    Price = c.Parts.Sum(p => p.Part.Price)
+                })
+                .FirstOrDefault();
 
         public IEnumerable<CarModel> ByMake(string make)
              => this.db
@@ -66,6 +78,16 @@
             this.db.Cars.Remove(car);
             this.db.SaveChanges();
         }
+
+        public IEnumerable<SelectListItem> GetCarsSelectListItems()
+            => this.db
+                .Cars
+                .Select(c => new SelectListItem
+                {
+                    Text = $"{c.Make} {c.Model}",
+                    Value = c.Id.ToString()
+                })
+                .ToList();
 
         public int Total()
             => this.db

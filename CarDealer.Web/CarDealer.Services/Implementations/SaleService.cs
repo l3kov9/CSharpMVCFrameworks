@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Services.Implementations
 {
+    using CarDealer.Data.Models;
     using Data;
     using Models.Cars;
     using Models.Sales;
@@ -28,6 +29,20 @@
                     Price = s.Car.Parts.Sum(p => p.Part.Price)
                 })
                 .ToList();
+
+        public void Create(int carId, int customerId, double discount)
+        {
+            var sale = new Sale
+            {
+                CarId = carId,
+                CustomerId = customerId,
+                Discount = discount
+            };
+
+            this.db
+                .Add(sale);
+            this.db.SaveChanges();
+        }
 
         public SaleDetailsModel Details(int id)
             => this.db

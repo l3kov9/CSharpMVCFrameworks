@@ -1,0 +1,19 @@
+﻿@model SaleFormModel
+@{
+    ViewData["Title"] = "Add Sale";
+}
+<h2>@ViewData["Title"]</h2>
+<form method="get" action="/sales/reviewsale">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="CarsDropdown"></label>
+        <select asp-for="CarId" asp-items="Model.CarsDropdown" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomersDropdown"></label>
+        <select asp-for="CustomerId" asp-items="Model.CustomersDropdown" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Submit" />
+    </div>
+</form>
