@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models.Cameras;
     using Services;
+    using System.Threading.Tasks;
 
     public class CamerasController : Controller
     {
@@ -17,16 +18,28 @@
             this.userManager = userManager;
         }
 
+        public IActionResult Details(int id)
+        {
+            var camera = this.cameras.ById(id);
+
+            return View(camera);
+        }
+
+        public IActionResult All()
+            => View(this.cameras.All());
+
         public IActionResult Add()
             => View();
 
         [HttpPost]
-        public IActionResult Add(AddCameraViewModel cameraModel)
+        public async Task<IActionResult> Add(AddCameraViewModel cameraModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(cameraModel);
             }
+
+            var user = await userManager.GetUserAsync(HttpContext.User);
 
             this.cameras.Create(cameraModel.Make,
                 cameraModel.Model,
@@ -41,7 +54,7 @@
                 cameraModel.LightMetering,
                 cameraModel.Description,
                 cameraModel.ImageUrl,
-                this.userManager.GetUserId(HttpContext.User));
+               user.Id);
 
             TempData["model"]= $"{cameraModel.Model} - {cameraModel.Make}";
 

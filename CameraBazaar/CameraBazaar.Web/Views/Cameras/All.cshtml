@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CameraServiceModel>
+
+@{
+    ViewData["Title"] = "All Cameras";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="col-md-offset-2 col-md-8">
+        <table class="table table-bordered table-hover">
+            @foreach (var camera in Model)
+            {
+                <tr>
+                    <th rowspan="2">
+                        <a href="/cameras/details/@camera.Id"><img src="@camera.ImageUrl" alt="@camera.Make @camera.Model" height="100" /></a>
+                    </th>
+                    <th>
+                        <h3>@camera.Make @camera.Model</h3>
+                    </th>
+                    <th class="text-right">
+                        <h3>@camera.Price.ToPrice()</h3>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <a href="/cameras/details/@camera.Id">Details</a>
+                    </th>
+                    <th class="text-right">
+                        <span style="color:darkblue">@(camera.Quantity > 0 ? "In Stock" : "Out of Stock")</span> - @camera.Quantity left
+                    </th>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

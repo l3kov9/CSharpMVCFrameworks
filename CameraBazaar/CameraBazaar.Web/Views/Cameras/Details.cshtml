@@ -1,0 +1,50 @@
+﻿@model CameraDetailsServiceModel
+@{
+    ViewData["Title"] = "Details";
+}
+<h2>@Model.Make @Model.Model - @Model.Price.ToPrice() - @(@Model.Quantity > 0 ? "In Stock" : "Out of Stock")</h2>
+<h4><em>Seller: <a href="/users/details?username=@Model.Username">@Model.Username</a></em></h4>
+<div class="container col-md-offset-1">
+    <img src="@Model.ImageUrl" alt="@Model.Make" width="200" />
+
+</div>
+<br /><br />
+<div class="container">
+    <div class="col-md-2 text-right text-primary">
+        Is Full Frame
+        <br /><br />
+        Min Shutter Speed
+        <br /><br />
+        Max Shutter Speed
+        <br /><br />
+        Min ISO
+        <br /><br />
+        Max ISO
+        <br /><br />
+        Video Resolution
+        <br /><br />
+        Light Metering
+        <br /><br />
+        Description
+        <br />
+    </div>
+    <div class="col-md-offset-1">
+        @(Model.IsFullFrame ? "Yes" : "No")
+        <br /><br />
+        @Model.MinShutterSpeed "
+        <br /><br />
+        1 / @Model.MaxShutterSpeed
+        <br /><br />
+        @Model.MinISO
+        <br /><br />
+        @Model.MaxISO
+        <br /><br />
+        @Model.VideoResolution
+        <br /><br />
+        @Model.LightMetering
+        <br /><br />
+        @Model.Description
+        <br />
+    </div>
+</div>
+
