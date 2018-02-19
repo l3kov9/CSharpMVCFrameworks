@@ -7,19 +7,24 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="container">
-    <div class="col-md-offset-2 col-md-8">
+    <div class="col-md-offset-1 col-md-10">
         <table class="table table-bordered table-hover">
             @foreach (var camera in Model)
             {
                 <tr>
-                    <th rowspan="2">
-                        <a href="/cameras/details/@camera.Id"><img src="@camera.ImageUrl" alt="@camera.Make @camera.Model" height="100" /></a>
+                    <th rowspan="2" class="text-center">
+                        <a href="/cameras/details/@camera.Id"><img src="@camera.ImageUrl" alt="@camera.Make @camera.Model" height="100" class="img-circle" /></a>
                     </th>
                     <th>
                         <h3>@camera.Make @camera.Model</h3>
                     </th>
                     <th class="text-right">
                         <h3>@camera.Price.ToPrice()</h3>
+                    </th>
+                    <th rowspan="2">
+                            <a href="/cameras/edit/@camera.Id" class="btn btn-warning form-control">Edit</a>
+                            <br /><br /><br />
+                            <a href="/cameras/delete/@camera.Id" class="btn btn-danger form-control">Delete</a>
                     </th>
                 </tr>
                 <tr>

@@ -25,5 +25,9 @@
         IEnumerable<CameraServiceModel> All();
 
         CameraDetailsServiceModel ById(int id);
+
+        void Edit(int id, CameraMake make, string model, string description, string imageUrl, bool isFullFrame, LightMetering lightMetering, int maxISO, MinISO minISO, int minShutterSpeed, int maxShutterSpeed, decimal price, int quantity, string userId, string videoResolution);
+
+        void DeleteById(int id);
     }
 }

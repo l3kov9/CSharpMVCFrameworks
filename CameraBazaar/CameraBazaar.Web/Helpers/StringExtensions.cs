@@ -6,5 +6,10 @@
         {
             return $"${price:F2}";
         }
+
+        public static string ToPercentage(this double percent)
+        {
+            return $"{percent:F2} %";
+        }
     }
 }

@@ -1,0 +1,12 @@
+﻿@model CameraDeleteViewModel
+@{
+    ViewData["Title"] = $"Delete {Model.Make} {Model.Model}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h2>Are you sure you want to delete it?</h2>
+
+<a href="/cameras/destroy/@Model.Id" class="btn btn-danger">YES</a>
+<a href="/cameras/all" class="btn btn-default">NO</a>
+

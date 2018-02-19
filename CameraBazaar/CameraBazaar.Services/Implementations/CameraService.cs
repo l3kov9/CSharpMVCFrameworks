@@ -91,5 +91,50 @@
             this.db.Add(camera);
             this.db.SaveChanges();
         }
+
+        public void DeleteById(int id)
+        {
+            var camera = this.db.Cameras.Find(id);
+
+            this.db.Cameras.Remove(camera);
+
+            this.db.SaveChanges();
+        }
+
+        public void Edit(int id,
+            CameraMake make,
+            string model,
+            string description,
+            string imageUrl,
+            bool isFullFrame,
+            LightMetering lightMetering,
+            int maxISO, 
+            MinISO minISO,
+            int minShutterSpeed,
+            int maxShutterSpeed,
+            decimal price,
+            int quantity,
+            string userId,
+            string videoResolution)
+        {
+            var camera = this.db.Cameras.Find(id);
+
+            camera.Make = make;
+            camera.Model = model;
+            camera.Description = description;
+            camera.ImageUrl = imageUrl;
+            camera.IsFullFrame = isFullFrame;
+            camera.LightMetering = lightMetering;
+            camera.MaxISO = maxISO;
+            camera.MinISO = minISO;
+            camera.MinShutterSpeed = minShutterSpeed;
+            camera.MaxShutterSpeed = maxShutterSpeed;
+            camera.Price = price;
+            camera.Quantity = quantity;
+            camera.UserId = userId;
+            camera.VideoResolution = videoResolution;
+
+            this.db.SaveChanges();
+        }
     }
 }
