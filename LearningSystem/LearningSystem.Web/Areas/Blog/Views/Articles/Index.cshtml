@@ -1,0 +1,32 @@
+﻿@model ArticleListingViewModel
+@{
+    ViewData["Title"] = "All Articles";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="col-md-12">
+    @foreach (var article in Model.Articles)
+    {
+        <div class="list-group col-md-6">
+            <a asp-action="Details" asp-route-id="@article.Id" asp-route-title="@article.Title.ToFriendlyUrl()" class="list-group-item active">
+                <h4 class="list-group-item-heading">@article.Title</h4>
+                <p class="list-group-item-text"><em>published by @article.Author on @article.PublishDate.ToShortDateString()</em></p>
+            </a>
+        </div>
+    }
+</div>
+
+<div class="col-md-12 text-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a asp-route-page="@Model.PreviousPage" class="page-link">Previous</a></li>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)"><a asp-route-page="@i" class="page-link">@i</a></li>
+            }
+
+            <li class="page-item"><a asp-route-page="@Model.NextPage" class="page-link">Next</a></li>
+        </ul>
+    </nav>
+</div>

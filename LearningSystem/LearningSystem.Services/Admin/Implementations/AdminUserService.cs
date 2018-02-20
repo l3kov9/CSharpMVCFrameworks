@@ -5,7 +5,6 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     public class AdminUserService : IAdminUserService
@@ -17,7 +16,7 @@
             this.db = db;
         }
 
-        public async Task<IEnumerable<AdminUserListingServiceModel>> All()
+        public async Task<IEnumerable<AdminUserListingServiceModel>> AllAsync()
             => await this.db
                 .Users
                 .ProjectTo<AdminUserListingServiceModel>()

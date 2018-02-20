@@ -2,9 +2,8 @@
 {
     using Microsoft.AspNetCore.Identity;
     using System;
-    using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
     using static DataConstrants;
 
     public class User : IdentityUser

@@ -1,7 +1,7 @@
 ﻿namespace LearningSystem.Services.Admin.Models
 {
-    using Common.Mapping;
     using Data.Models;
+    using Common.Mapping;
 
     public class AdminUserListingServiceModel : IMapFrom<User>
     {

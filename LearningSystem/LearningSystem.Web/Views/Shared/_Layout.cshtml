@@ -30,13 +30,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="Blog" asp-controller="Articles" asp-action="Index">Articles</a></li>
 
                     @if (User.IsInRole(WebConstants.AdministratorRole))
                     {
                         <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
+                        <li><a asp-area="Admin" asp-controller="Courses" asp-action="Create">Create Course</a></li>
                     }
 
+                    @if (User.IsInRole(WebConstants.BlogAuthorRole))
+                    {
+                        <li><a asp-area="Blog" asp-controller="Articles" asp-action="Create">Create Article</a></li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -45,8 +50,11 @@
     <div class="container body-content">
         @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
         {
-            <div class="alert alert-success">
-                @TempData[WebConstants.TempDataSuccessMessageKey]
+            <br />
+            <div class="col-md-12">
+                <div class="alert alert-success col-md-6 col-md-offset-3 text-center">
+                    @TempData[WebConstants.TempDataSuccessMessageKey]
+                </div>
             </div>
         }
 

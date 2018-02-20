@@ -1,19 +1,24 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
-    using Models;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
+    using Services;
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ICourseService courses;
+
+        public HomeController(ICourseService courses)
         {
-            return View();
+            this.courses = courses;
         }
 
+        public async Task<IActionResult> Index()
+            => View(await this.courses.Active());
+
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

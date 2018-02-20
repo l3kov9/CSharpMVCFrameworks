@@ -9,4 +9,8 @@
     <ProjectReference Include="..\LearningSystem.Data\LearningSystem.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" Version="4.0.183" />
+  </ItemGroup>
+
 </Project>
