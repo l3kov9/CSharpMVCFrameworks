@@ -1,0 +1,31 @@
+﻿@model UserDetailsServiceModel
+@{
+    ViewData["Title"] = $"User {Model.UserName}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.UserName == User.Identity.Name)
+{
+    <a asp-controller="Manage" asp-action="Index" class="btn btn-warning">Edit Profile</a>
+}
+
+<div class="col-md-12">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading text-center"><strong>Username</strong> - @Model.UserName<br /><strong>Name</strong> - @Model.Name<br /><strong>Birthday</strong> - @Model.Birthdate.ToShortDateString()</div>
+            <div class="panel-body text-center"><strong>Courses: @Model.Courses.Count()</strong></div>
+            @foreach(var course in Model.Courses)
+            {
+                <div class="panel-body">
+                    <strong>Name</strong>: @course.Name
+                    <br />
+                    <strong>Grade</strong>: @course.Grade.ToString()
+                </div>
+                <hr />
+            }
+        </div>
+    </div>
+</div>
+
+

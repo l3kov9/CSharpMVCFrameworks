@@ -2,24 +2,30 @@
 @{
     ViewData["Title"] = "All Courses";
 }
-
+<br />
 <div class="jumbotron">
     <h2 class="text-center">Welcome to our Learning System!</h2>
+    <img src="~/images/men-book.png" />
+    <a href="/">
+        <img src="~/images/men-book-cars.png" />
+    </a>
 </div>
 
 @foreach (var course in Model)
 {
-<div class="col-md-6">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">@course.Name</h3>
-        </div>
-        <div class="panel-body">
-            @course.Description
-            <br />
-            @course.StartDate.ToShortDateString() - @course.EndDate.ToShortDateString()
+<a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">@course.Name</h3>
+            </div>
+            <div class="panel-body">
+                @course.Description
+                <br />
+                @course.StartDate.ToShortDateString() - @course.EndDate.ToShortDateString()
+            </div>
         </div>
     </div>
-</div>
+</a>
 }
 

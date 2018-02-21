@@ -1,0 +1,56 @@
+﻿@model CourseDetailsViewModel
+@{
+    ViewData["Title"] = "Course Details";
+}
+<br />
+<div class="col-md-12">
+    <div class="panel panel-default col-md-8 col-md-offset-2">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center"><strong>@Model.Course.Name</strong></h2>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <td>@Model.Course.Description</td>
+                    </tr>
+                    <tr>
+                        <th>Course Duration: </th>
+                        <td>@Model.Course.StartDate.ToShortDateString() - @Model.Course.EndDate.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <th>Trainer: </th>
+                        <td>@Model.Course.Trainer</td>
+                    </tr>
+                    <tr>
+                        <th>Total Students Enrolled: </th>
+                        <td>@Model.Course.Students @(Model.Course.Students == 1 ? "student" : "students") </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model.UserIsEnrolled)
+    {
+        <h2>You are already enrolled in this course</h2>
+        <form asp-action="SignOut" asp-route-id="@Model.Course.Id" method="post">
+            <input type="submit" class="btn btn-danger" value="Sign Out" />
+        </form>
+    }
+    else
+    {
+        <h2>Join our course <strong>Now</strong>! </h2>
+        <form asp-action="SignUp" asp-route-id="@Model.Course.Id" method="post">
+            <input type="submit" class="btn btn-primary" value="Join" />
+        </form>
+    }
+}
+else
+{
+    <h4>You already have an account? Login <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path">here</a> or create <a asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Context.Request.Path">new account</a>.</h4>
+}

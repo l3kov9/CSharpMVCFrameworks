@@ -2,6 +2,7 @@
 {
     using AutoMapper.QueryableExtensions;
     using Data;
+    using LearningSystem.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using System;
@@ -25,5 +26,58 @@
                 .Where(c => c.StartDate >= DateTime.UtcNow)
                 .ProjectTo<CourseListingServiceModel>()
                 .ToListAsync();
+
+        public async Task<bool> AddStudentToCourseAsync(string userId, int courseId)
+        {
+            var userCourse = await this.db
+                    .FindAsync<StudentCourse>(userId, courseId);
+
+            if (userCourse != null)
+            {
+                return false;
+            }
+
+            var studentCourse = new StudentCourse
+            {
+                StudentId = userId,
+                CourseId = courseId
+            };
+
+            this.db.Add(studentCourse);
+
+            await this.db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<CourseDetailsServiceModel> ByIdAsync(int id)
+            => await this.db
+                .Courses
+                .Where(c => c.Id == id)
+                .ProjectTo<CourseDetailsServiceModel>()
+                .FirstOrDefaultAsync();
+
+        public async Task<bool> RemoveStudentFromCourseAsync(string userId, int courseId)
+        {
+            var userCourse = await this.db
+                    .FindAsync<StudentCourse>(userId, courseId);
+
+            if(userCourse == null)
+            {
+                return false;
+            }
+
+            this.db
+                .Remove(userCourse);
+
+            await this.db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UserIsEnrolledInCourseByIdAsync(string userId, int courseId)
+            => await this.db
+                .Courses
+                .AnyAsync(c => c.Id == courseId && c.Students.Any(st => st.Student.Id == userId));
     }
 }

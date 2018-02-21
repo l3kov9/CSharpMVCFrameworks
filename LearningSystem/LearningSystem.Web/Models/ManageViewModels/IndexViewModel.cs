@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LearningSystem.Web.Models.ManageViewModels
+﻿namespace LearningSystem.Web.Models.ManageViewModels
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    using static Data.DataConstrants;
+
     public class IndexViewModel
     {
         public string Username { get; set; }
+
+        [Required]
+        [MaxLength(UserNameMaxLength)]
+        public string Name { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime Birthdate { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
 

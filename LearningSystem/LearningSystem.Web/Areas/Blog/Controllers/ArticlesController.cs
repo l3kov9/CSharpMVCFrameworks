@@ -65,6 +65,8 @@
 
             await this.articles.CreateAsync(model.Title, model.Content, userId);
 
+            TempData.AddSuccessMessage($"Article {model.Title} was created by {this.userManager.GetUserName(User)}");
+
             return RedirectToAction(nameof(Index));
         }
     }
