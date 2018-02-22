@@ -36,6 +36,18 @@
                 .AddEntityFrameworkStores<LearningSystemDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddFacebook(fo =>
+            {
+                fo.AppId = "544650015933761";
+                fo.AppSecret = "87da7dd6cdf2ccd738237f213b208074";
+            });
+
+            services.AddAuthentication().AddGoogle(go =>
+            {
+                go.ClientId = "562286623453-brfn7el0m5u09hjmo25ml197l4o5drd1.apps.googleusercontent.com";
+                go.ClientSecret = "_TdKF6dmhKI_Xf_ymTF9_S8T";
+            });
+
             services.AddAutoMapper();
 
             services.AddDomainServices();

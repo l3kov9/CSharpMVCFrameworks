@@ -10,22 +10,27 @@
         <img src="~/images/men-book-cars.png" />
     </a>
 </div>
-
 @foreach (var course in Model)
 {
-<a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">@course.Name</h3>
-            </div>
-            <div class="panel-body">
-                @course.Description
-                <br />
-                @course.StartDate.ToShortDateString() - @course.EndDate.ToShortDateString()
+    var description = course.Description == null ? string.Empty : course.Description;
+    if (description.Length > 50)
+    {
+        description = $"{description.Substring(0, 50)} ...";
+    }
+
+    <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@course.Name</h3>
+                </div>
+                <div class="panel-body">
+                    @description
+                    <br />
+                    @course.StartDate.ToShortDateString() - @course.EndDate.ToShortDateString()
+                </div>
             </div>
         </div>
-    </div>
-</a>
+    </a>
 }
 

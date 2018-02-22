@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models.Courses;
     using Services;
+    using Services.Models;
     using System.Threading.Tasks;
 
     public class CoursesController : Controller
@@ -24,7 +25,7 @@
         {
             var course = new CourseDetailsViewModel
             {
-                Course = await this.courses.ByIdAsync(id)
+                Course = await this.courses.ByIdAsync<CourseDetailsServiceModel>(id)
             };
 
             if (course.Course == null)

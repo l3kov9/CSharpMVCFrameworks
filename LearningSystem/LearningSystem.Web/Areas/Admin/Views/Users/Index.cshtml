@@ -23,7 +23,7 @@
         {
             <tr>
                 <td>
-                    @user.Username
+                    <a asp-area="" asp-controller="Users" asp-action="Profile" asp-route-username="@user.Username">@user.Username</a>
                 </td>
                 <td>
                     @user.Name
