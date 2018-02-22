@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CourseListingServiceModel>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h2>My Courses</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+
+            var description = course.Description == null ? string.Empty : course.Description;
+
+            if (description.Length > 50)
+            {
+                description = $"{description.Substring(0, 50)} ...";
+            }
+            
+            <tr>
+                <td>
+                    @course.Id
+                </td>
+                <td>
+                    @course.Name
+                </td>
+                <td>
+                    @description
+                </td>
+                <td>
+                    @course.StartDate.ToShortDateString()
+                </td>
+                <td>
+                    @course.EndDate.ToShortDateString()
+                </td>
+                <td>
+                    <a asp-action="Students" asp-route-id="@course.Id" class="btn btn-primary">Students</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
