@@ -1,0 +1,24 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = $"Search results for {Model.Search}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@{ 
+    var coursesFound = Model.Courses.Count();
+    var usersFound = Model.Users.Count();
+}
+
+<h2>Found courses: @coursesFound, Users found: @usersFound</h2>
+
+<div class="card form-control" style="width: 20rem; border-color:green">
+    <img class="card-img-top" src="~/images/men-book-cars.png" alt="Card image cap">
+    <div class="card-block">
+        <h4 class="card-title">Card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+
+

@@ -27,6 +27,13 @@
                 .ProjectTo<CourseListingServiceModel>()
                 .ToListAsync();
 
+        public async Task<IEnumerable<CourseListingServiceModel>> CoursesBySearchAsync(string search)
+            => await this.db
+                .Courses
+                .Where(c => c.Name.ToLower().Contains(search.ToLower()))
+                .ProjectTo<CourseListingServiceModel>()
+                .ToListAsync();
+
         public async Task<bool> AddStudentToCourseAsync(string userId, int courseId)
         {
             var userCourse = await this.db

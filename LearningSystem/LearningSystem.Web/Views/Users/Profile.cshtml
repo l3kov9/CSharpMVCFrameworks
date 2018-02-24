@@ -15,6 +15,7 @@
         <div class="panel panel-info">
             <div class="panel-heading text-center"><strong>Username</strong> - @Model.UserName<br /><strong>Name</strong> - @Model.Name<br /><strong>Birthday</strong> - @Model.Birthdate.ToShortDateString()</div>
             <div class="panel-body text-center"><strong>Courses: @Model.Courses.Count()</strong></div>
+            <hr />
             @foreach(var course in Model.Courses)
             {
                 <div class="panel-body">

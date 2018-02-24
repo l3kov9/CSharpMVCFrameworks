@@ -4,6 +4,7 @@
     using Data;
     using Microsoft.EntityFrameworkCore;
     using Models;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -22,5 +23,12 @@
                 .Where(u => u.Id == id)
                 .ProjectTo<UserDetailsServiceModel>(new { studentId = id })
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<UserListingServiceModel>> UserBySearchAsync(string search)
+            => await this.db
+                .Users
+                .Where(u => u.UserName.ToLower().Contains(search.ToLower()))
+                .ProjectTo<UserListingServiceModel>()
+                .ToListAsync();
     }
 }

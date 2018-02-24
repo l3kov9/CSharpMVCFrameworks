@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CourseListingServiceModel>
+﻿@model HomeIndexViewModel
 @{
     ViewData["Title"] = "All Courses";
 }
@@ -10,7 +10,28 @@
         <img src="~/images/men-book-cars.png" />
     </a>
 </div>
-@foreach (var course in Model)
+
+<form asp-action="Search">
+    <div class="row">
+        <div class="col-md-4">
+            <input asp-for="Search" placeholder="Search . . . " class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input asp-for="SearchInUsers" placeholder="Search . . . " />
+            <label asp-for="SearchInUsers"></label>
+        </div>
+        <div class="col-md-2">
+            <input asp-for="SearchInCourses" placeholder="Search . . . " />
+            <label asp-for="SearchInCourses"></label>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="form-control btn btn-primary">Search</button>
+        </div>
+    </div>   
+</form>
+<br />
+
+@foreach (var course in Model.Courses)
 {
     var description = course.Description == null ? string.Empty : course.Description;
     if (description.Length > 50)
