@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ProductServiceModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+@foreach (var product in Model)
+{
+<div style="height:150px" class="text-center">
+    <div class="col-md-4">
+        <h4>
+            @product.Name - @product.Price.ToPrice()
+        </h4>
+    </div>
+    <div class="col-md-5">
+        <img src="http://thecatapi.com/api/images/get?format=src&type=gif&guid=@(Guid.NewGuid())" height="100" width="100">
+    </div>
+    <div class="col-md-3">
+        <a class="btn btn-primary form-control">Buy</a>
+    </div>
+</div>
+    <hr />
+}
+
