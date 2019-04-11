@@ -1,0 +1,108 @@
+﻿@model IEnumerable<TransactionServiceModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<link href="~/Content/accordion.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-3">
+            <h1 class="my-4">Bank System</h1>
+
+            <button class="accordion">Account</button>
+            <div class="panel">
+                <p style="margin-top:50px">Visit your profile page here and control your bills</p>
+                <a href="/accounts/index" style="margin-bottom:50px" class="btn btn-success form-control">Profile</a>
+            </div>
+
+            <button class="accordion">Money Transaction</button>
+            <div class="panel">
+                <p style="margin-top:50px">Pay your bills from here</p>
+                <a href="/accounts/transactions" style="margin-bottom:50px" class="btn btn-success form-control">Pay bill</a>
+            </div>
+
+            <button class="accordion">All Transactions</button>
+            <div class="panel">
+                <p style="margin-top:50px">Here you can visit all the transactions</p>
+                <a href="/accounts/alltransactions" style="margin-bottom:50px" class="btn btn-success form-control">Transactions</a>
+            </div>
+
+        </div>
+
+        <div class="col-lg-9">
+            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="https://cdn.websites.hibu.com/6adc5e75ccd8488ab79de26fcdf7c3ee/import/base/Satellite_320382287.png" style="opacity:0.5" alt="Online Bank System">
+                    </div>
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="http://premierlegalsvc.com/wp-content/uploads/2012/08/2-950x350.jpg" style="opacity:0.5" alt="Online Bank System">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="http://bogushtime.com/sites/default/files/styles/ck-large/public/media/_time_-_is_money_095207_.jpg?itok=frwPutPC" style="opacity:0.5" alt="Online Bank System">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <div class="text-center" style="margin-top:100px">
+                <h2>Latest Transactions:</h2>
+            </div>
+            <br />
+            <div class="row">
+
+                @foreach (var transaction in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://importantfinancenews.com/lib/030/794-finance1-finance-vs-summer-travel.jpg" alt=""></a>
+                            <div class="card-body">
+
+                                <h5>Amount: @transaction.Amount.ToPrice()</h5>
+                                <p class="card-text"><strong>Sender IBAN:</strong> @transaction.SenderIban</p>
+                                <p class="card-text"><strong>Receiver IBAN:</strong> @transaction.ReceiverIban</p>
+                                <p class="card-text"><strong>Description:</strong> @transaction.Description</p>
+                            </div>
+                            <div class="card-footer">
+                                @if (!transaction.IsFinished)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="/accounts/finishtransaction/@transaction.Id" class="btn btn-success form-control">Finish</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a href="/accounts/canceltransaction/@transaction.Id" class="btn btn-danger form-control">Cancel</a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-info form-control">Finished</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <a href="/accounts/alltransactions" class="btn btn-info form-control">View All Transactions</a>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/accordion.js"></script>

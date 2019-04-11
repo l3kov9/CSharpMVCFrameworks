@@ -1,0 +1,53 @@
+﻿@model TransactionViewModel
+
+@{
+    ViewBag.Title = "Transactions";
+}
+
+<link href="~/Content/login-form.css" rel="stylesheet" />
+<script>
+    $(function () {
+        $(document).tooltip();
+    });
+</script>
+<div class="login-page">
+    <div class="form">
+        <div class="text-center">
+            <h2>Transaction</h2>
+        </div>
+        <br />
+        <form method="post">
+            @Html.ValidationMessage("Form", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+
+            @Html.LabelFor(tr=>tr.SenderIban)
+            <select class="selectpicker form-control" data-style="btn-primary" name="SenderIban">
+                @foreach (var bill in this.ViewBag.Bills)
+                {
+                    <option value="@bill.IBAN">@bill.IBAN - @bill.Amount</option>
+                }
+            </select>
+
+            @Html.ValidationMessageFor(model => model.SenderIban, null, new { @class = "text-danger" })
+
+            <br />
+            <input type="text" name="ReceiverIban" placeholder="Receiver Iban" title="Receiver Iban" />
+            @Html.ValidationMessageFor(model => model.ReceiverIban, null, new { @class = "text-danger" })
+
+            <input type="text" name="Amount" placeholder="Amount" title="Amount" />
+            @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "text-danger" })
+            <br />
+            <textarea class="form-control" name="Description" placeholder="Description" title="Description" rows="3"></textarea>
+            @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
+            <br />
+
+            <button>Transfer</button>
+        </form>
+    </div>
+</div>
+<div style="height:100px"></div>
+<script>
+    $('.message a').click(function () {
+        $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
+    });
+</script>

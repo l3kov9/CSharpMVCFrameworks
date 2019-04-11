@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TransactionServiceModel>
+@{
+    ViewBag.Title = "All";
+}
+
+<h2>All Transactions:</h2>
+
+<a href="/accounts/alltransactions?direction=descending" class="btn btn-success">Order by newest transactions</a>
+<a href="/accounts/alltransactions?direction=notfinished" class="btn btn-success">First not finished transactions</a>
+<br />
+
+<div class="row">
+    @foreach (var transaction in Model)
+    {
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="http://importantfinancenews.com/lib/030/794-finance1-finance-vs-summer-travel.jpg" alt=""></a>
+                <div class="card-body">
+
+                    <h5>Amount: @transaction.Amount.ToPrice()</h5>
+                    <p class="card-text"><strong>Sender IBAN:</strong> @transaction.SenderIban</p>
+                    <p class="card-text"><strong>Receiver IBAN:</strong> @transaction.ReceiverIban</p>
+                    <p class="card-text"><strong>Description:</strong> @transaction.Description</p>
+                </div>
+                <div class="card-footer">
+                    @if (!transaction.IsFinished)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="/accounts/finishtransaction/@transaction.Id" class="btn btn-success form-control">Finish</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="/accounts/canceltransaction/@transaction.Id" class="btn btn-danger form-control">Cancel</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-info form-control">Finished</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

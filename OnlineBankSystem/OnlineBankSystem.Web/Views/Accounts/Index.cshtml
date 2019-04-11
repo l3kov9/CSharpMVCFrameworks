@@ -1,0 +1,37 @@
+﻿@model AccountServiceModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+
+    <header class="jumbotron my-4">
+        <h3 class="display-3">Hello, @Model.FirstName @Model.LastName</h3>
+        <h4><i>username: @Model.Username</i></h4>
+        <p class="lead">Here you can see all your bills</p>
+        <h3>Total Amount: @Model.Bills.Sum(b => b.Amount).ToPrice()</h3>
+        <a href="/home/index" class="btn btn-info">Back to home page</a>
+    </header>
+    <br /><br />
+    <div class="row text-center">
+
+        @foreach (var bill in Model.Bills)
+        {
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://78.media.tumblr.com/91b6c730ee029d557b9f71cae14da482/tumblr_mnle0cfnaL1stxp9to1_500.jpg" alt="bill">
+                    <div class="card-body">
+                        <h4 class="card-title">@bill.Amount.ToPrice()</h4>
+                        <p class="card-text">IBAN: @bill.IBAN</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/accounts/transactions" class="btn btn-success">Go to transactions</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+

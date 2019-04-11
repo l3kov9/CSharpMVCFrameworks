@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Online Bank System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body style="padding-bottom:70px;background-image:url('https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Free-cement-wallpaper-hd-PIC-WPC007333.jpg?d5f43e&d5f43e');height:100%;background-position: center;background-repeat: no-repeat;background-size: cover;">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/home/index">
+                <i class="fa fa-home" style="font-size:24px;color:wheat"></i>
+                Bank System
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+  
+                <ul class="navbar-nav ml-auto">
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item navbar-text">
+                            <span style="padding-right:20px">
+                                <i class="fa fa-user-circle-o" style="font-size:22px;color:wheat"></i>
+                                @(string.Format("Hello, {0}!", this.User.Identity.Name))
+                            </span>
+                        </li>
+                    }
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item navbar-text">
+                            <i class="fa fa-sign-out" style="font-size:22px;color:wheat"></i>
+                        </li>
+                        @Html.ActionLink("Log out", "Logout", "Users", null, new { @class = "nav-link" })
+                    }
+                    else
+                    {
+                        <li class="nav-item navbar-text">
+                            <i class="fa fa-user-plus" style="font-size:22px;color:wheat"></i>
+                        </li>
+                        @Html.ActionLink("Log in", "Login", "Users", null, new { @class = "nav-link" })
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @if (TempData.ContainsKey("SuccessMessage"))
+        {
+            <br />
+            <div class="col-md-12">
+                <div class="alert alert-success col-6 offset-3 text-center">
+                    @TempData["SuccessMessage"]
+                </div>
+            </div>
+        }
+
+        @if (TempData.ContainsKey("ErrorMessage"))
+        {
+            <br />
+            <div class="col-md-12">
+                <div class="alert alert-danger col-6 offset-3 text-center">
+                    @TempData["ErrorMessage"]
+                </div>
+            </div>
+        }
+
+        @RenderBody()
+        <hr />
+    </div>
+
+    <footer class="py-3 bg-dark" style="position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;">
+        <div class="container">
+            <p class="m-0 text-center text-white">Online Bank System</p>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

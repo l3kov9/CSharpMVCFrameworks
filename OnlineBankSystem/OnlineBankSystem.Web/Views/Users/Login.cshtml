@@ -1,0 +1,44 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+<link href="~/Content/login-form.css" rel="stylesheet" />
+
+<script>
+    $(function () {
+        $(document).tooltip();
+    });
+</script>
+<div style="height:200px"></div>
+<div class="login-page">
+    <div class="form">
+        <div class="text-center">
+            <h2>Login</h2>
+        </div>
+        <br />
+        <form class="login-form" method="post">
+            @Html.ValidationMessage("Form", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+
+            <input type="text" name="Username" placeholder="Username" title="Username must be between 5 and 50 symbols" />
+            @Html.ValidationMessageFor(model => model.Username, null, new { @class = "text-danger" })
+
+            <input type="password" name="Password" placeholder="Password" title="Your password must be between 6 and 20 symbols and must contains at least one letter and one digit" />
+            @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+            <br />
+            I'm not a robot?
+            @Html.CheckBoxFor(model => model.IsReal)
+            @Html.ValidationMessageFor(model => model.IsReal, null, new { @class = "text-danger" })
+            <button>Login</button>
+        </form>
+    </div>
+</div>
+<div style="height:200px"></div>
+
+<script>
+    $('.message a').click(function () {
+        $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
+    });
+</script>
+
+
